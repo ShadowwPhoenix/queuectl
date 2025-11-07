@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QueueCTL Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <h2>🚀 QueueCTL Dashboard</h2>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/dlq">DLQ</a>
+        <a href="/config">Config</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Job Summary</h2>
+    <div class="card">
+      <ul>
+        <li>Pending: <%= counts.pending %></li>
+        <li>Processing: <%= counts.processing %></li>
+        <li>Completed: <%= counts.completed %></li>
+        <li>Dead: <%= counts.dead %></li>
+      </ul>
+    </div>
+
+    <h2>Active Workers</h2>
+    <% if (workers.length === 0) { %>
+      <div class="card">
+        <p>No active workers.</p>
+      </div>
+    <% } else { %>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>ID</th><th>PID</th><th>Status</th><th>Heartbeat</th></tr>
+          <% workers.forEach(w => { %>
+            <tr>
+              <td><%= w.id %></td>
+              <td><%= w.pid %></td>
+              <td><%= w.status %></td>
+              <td><%= new Date(w.heartbeat_at * 1000).toLocaleString() %></td>
+            </tr>
+          <% }) %>
+        </table>
+      </div>
+    <% } %>
+  </div>
+
+  <footer>
+    QueueCTL © 2025 | Built by Mekala Varun
+  </footer>
+</body>
+</html>

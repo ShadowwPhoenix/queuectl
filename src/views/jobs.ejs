@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jobs - QueueCTL</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <h2>📋 Jobs</h2>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/dlq">DLQ</a>
+        <a href="/config">Config</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>All Jobs</h2>
+
+    <div class="card">
+      <form method="get" action="/jobs">
+        <label>Filter by state:</label>
+        <select name="state" onchange="this.form.submit()">
+          <option value="">All</option>
+          <option value="pending" <%= state==='pending'?'selected':'' %>>Pending</option>
+          <option value="processing" <%= state==='processing'?'selected':'' %>>Processing</option>
+          <option value="completed" <%= state==='completed'?'selected':'' %>>Completed</option>
+          <option value="dead" <%= state==='dead'?'selected':'' %>>Dead</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <tr><th>ID</th><th>Command</th><th>State</th><th>Attempts</th><th>Updated</th></tr>
+        <% if (jobs.length === 0) { %>
+          <tr><td colspan="5">No jobs found.</td></tr>
+        <% } %>
+        <% jobs.forEach(j => { %>
+          <tr>
+            <td><%= j.id %></td>
+            <td><%= j.command %></td>
+            <td><span class="state <%= j.state %>"><%= j.state %></span></td>
+            <td><%= j.attempts %>/<%= j.max_retries %></td>
+            <td><%= new Date(j.updated_at * 1000).toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    QueueCTL © 2025 | Built by Mekala Varun
+  </footer>
+</body>
+</html>

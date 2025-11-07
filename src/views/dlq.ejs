@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DLQ - QueueCTL</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <h2>💀 Dead Letter Queue</h2>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/dlq">DLQ</a>
+        <a href="/config">Config</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <% if (jobs.length === 0) { %>
+      <div class="card">
+        <p>No dead jobs found.</p>
+      </div>
+    <% } else { %>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>ID</th><th>Command</th><th>Error</th><th>Actions</th></tr>
+          <% jobs.forEach(j => { %>
+            <tr>
+              <td><%= j.id %></td>
+              <td><%= j.command %></td>
+              <td><%= j.last_error || '(no error)' %></td>
+              <td>
+                <form method="post" action="/dlq/retry/<%= j.id %>">
+                  <button type="submit">Retry</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </table>
+      </div>
+    <% } %>
+  </div>
+
+  <footer>
+    QueueCTL © 2025 | Built by Mekala Varun
+  </footer>
+</body>
+</html>

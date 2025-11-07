@@ -1,0 +1,32 @@
+{
+  "name": "queuectl",
+  "version": "1.1.0",
+  "description": "QueueCTL - CLI-based background job queue system with SQLite persistence and web dashboard",
+  "author": "Chinnu",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "bin/queuectl.js",
+  "bin": {
+    "queuectl": "bin/queuectl.js"
+  },
+  "scripts": {
+    "start": "node bin/queuectl.js",
+    "worker": "node src/worker.js",
+    "dashboard": "node src/dashboard.js",
+    "dev": "nodemon src/dashboard.js",
+    "demo": "npm run dashboard & sleep 2 && queuectl enqueue '{\"command\":\"echo Hello QueueCTL!\"}' && queuectl worker start --count 1"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.0",
+    "commander": "^12.1.0",
+    "uuid": "^9.0.1",
+    "express": "^5.1.0",
+    "ejs": "^3.1.10"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

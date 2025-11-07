@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Config - QueueCTL</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <h2>⚙️ Configuration</h2>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/dlq">DLQ</a>
+        <a href="/config">Config</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>System Configuration</h2>
+    <div class="table-wrapper">
+      <table>
+        <tr><th>Key</th><th>Value</th></tr>
+        <% if (cfg.length === 0) { %>
+          <tr><td colspan="2">No config entries found.</td></tr>
+        <% } %>
+        <% cfg.forEach(c => { %>
+          <tr><td><%= c.key %></td><td><%= c.value %></td></tr>
+        <% }) %>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    QueueCTL © 2025 | Built by Mekala Varun
+  </footer>
+</body>
+</html>
